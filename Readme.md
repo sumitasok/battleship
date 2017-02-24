@@ -1,6 +1,7 @@
 Run:
 
 ```
+go get github.com/sumitasok/battleship
 go build cmd/main.go
 ./main tests/case-2-input.txt
 ```
