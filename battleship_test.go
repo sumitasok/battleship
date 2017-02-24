@@ -77,6 +77,25 @@ func TestBattleShipHit(t *testing.T) {
 	}
 }
 
+func TestBattleShipStanding(t *testing.T) {
+	bg := &battleGround{}
+	bg.init(3)
+
+	bg.plotShips(1, [][]int{
+		[]int{1, 1},
+	})
+
+	if bg.ShipsStanding() != 1 {
+		t.Errorf("error in counting safe ships")
+	}
+
+	bg.hit(1, 1)
+
+	if bg.ShipsStanding() != 0 {
+		t.Errorf("error in counting safe ships")
+	}
+}
+
 func TestBattleShipString(t *testing.T) {
 	bg := &battleGround{}
 	err := bg.init(3)

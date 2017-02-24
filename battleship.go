@@ -74,6 +74,10 @@ func (b *battleGround) plotShips(s int, positions [][]int) error {
 	return nil
 }
 
+func (b *battleGround) ShipsStanding() int {
+	return b.s - b.shipDown
+}
+
 func (b *battleGround) hit(x, y int) error {
 	switch b.positions[x][y] {
 	case ALIVE_BATTLESHIPS:
