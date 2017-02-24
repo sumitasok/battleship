@@ -28,7 +28,9 @@ func breadth(matrix map[int]map[int]string) int {
 }
 
 func TestInit(t *testing.T) {
-	bg, err := NewBattleGround(3, 1, "1:1")
+	bg := &battleGround{}
+	err := bg.init(3)
+
 	if err != nil {
 		t.Errorf("Init failed")
 	}
@@ -43,7 +45,8 @@ func TestInit(t *testing.T) {
 }
 
 func TestBattleShipString(t *testing.T) {
-	bg, err := NewBattleGround(3, 1, "1:1")
+	bg := &battleGround{}
+	err := bg.init(3)
 
 	if err != nil {
 		t.Errorf("Init failed")
@@ -55,6 +58,23 @@ func TestBattleShipString(t *testing.T) {
 	}
 
 	// print(layout)
+}
+
+func TestBattleGroundPlotShips(t *testing.T) {
+	bg := &battleGround{}
+	bg.init(3)
+
+	if err := bg.plotShips(1, [][]int{
+		[]int{1, 1},
+	}); err != nil {
+		t.Errorf("plotting failed")
+	}
+
+	if bg.String() != "___\n_B_\n___\n" {
+		t.Errorf("error in plotting")
+	}
+
+	// print(bg.String())
 }
 
 func TestValidateGridRange(t *testing.T) {
