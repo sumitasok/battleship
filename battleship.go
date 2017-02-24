@@ -22,6 +22,8 @@ var (
 	ErrMinShipCount            error = errors.New("Bring you ships! ship count need to be more than 0")
 	ErrMaxShipCount            error = errors.New("Bring you ships! ship count cannot be more than half of the grid size")
 	ErrIncorrectPositionString error = errors.New("Position string incorrect")
+	ErrExceededAllowedHits     error = errors.New("Hits more than allowed hits count")
+	ErrExceededAllowedShips    error = errors.New("Hits more than allowed ships count")
 )
 
 type battleGround struct {
@@ -62,6 +64,10 @@ func (b *battleGround) String() string {
 func (b *battleGround) plotShips(s int, positions [][]int) error {
 	b.s = s
 	b.shipDown = 0
+
+	if len(positions) > s {
+		return ErrExceededAllowedShips
+	}
 
 	if err := validateShipPositions(s, positions); err != nil {
 		return err
@@ -112,7 +118,10 @@ func NewBattleGround(m, s int, positions string) (battleGround, error) {
 		return battleGround{}, err
 	}
 
-	bg.plotShips(s, position)
+	err = bg.plotShips(s, position)
+	if err != nil {
+		return battleGround{}, err
+	}
 
 	return bg, nil
 }

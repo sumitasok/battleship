@@ -108,8 +108,22 @@ func TestBattleShipString(t *testing.T) {
 	if layout != "___\n___\n___\n" {
 		t.Errorf("Draw Failed")
 	}
+}
 
-	// print(layout)
+func TestBattleGroundPlotShip(t *testing.T) {
+	bg := &battleGround{}
+	err := bg.init(3)
+	positions := [][]int{
+		[]int{1, 1},
+		[]int{2, 3},
+		[]int{3, 4},
+		[]int{2, 4},
+		[]int{4, 0},
+	}
+	err = bg.plotShips(1, positions)
+	if err == nil {
+		t.Error("Error `false positive`, extra ships in ploting not caught")
+	}
 }
 
 func TestBattleGroundPlotShips(t *testing.T) {
@@ -119,14 +133,12 @@ func TestBattleGroundPlotShips(t *testing.T) {
 	if err := bg.plotShips(1, [][]int{
 		[]int{1, 1},
 	}); err != nil {
-		t.Errorf("plotting failed")
+		t.Errorf("plotting `false negative`")
 	}
 
 	if bg.String() != "___\n_B_\n___\n" {
 		t.Errorf("error in plotting")
 	}
-
-	// print(bg.String())
 }
 
 func TestValidateGridRange(t *testing.T) {
