@@ -44,6 +44,31 @@ func TestInit(t *testing.T) {
 	}
 }
 
+func TestBattleShipHit(t *testing.T) {
+	bg := &battleGround{}
+	bg.init(3)
+
+	bg.plotShips(1, [][]int{
+		[]int{1, 1},
+	})
+
+	if bg.String() != "___\n_B_\n___\n" {
+		t.Errorf("error in plotting")
+	}
+
+	bg.hit(0, 1)
+
+	if bg.String() != "_O_\n_B_\n___\n" {
+		t.Errorf("error in plotting missed hit")
+	}
+
+	bg.hit(1, 1)
+
+	if bg.String() != "_O_\n_X_\n___\n" {
+		t.Errorf("error in plotting missed hit")
+	}
+}
+
 func TestBattleShipString(t *testing.T) {
 	bg := &battleGround{}
 	err := bg.init(3)
