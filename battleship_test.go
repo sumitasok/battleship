@@ -13,6 +13,18 @@ func TestNewBattleGround(t *testing.T) {
 	if len(_battleGround.positions) != 0 {
 		t.Errorf("validation failed")
 	}
+
+	if breadth(_battleGround.positions) != 0 {
+		t.Errorf("validation failed")
+	}
+}
+
+func breadth(matrix map[int]map[int]string) int {
+	if len(matrix) == 0 {
+		return 0
+	}
+
+	return len(matrix[0])
 }
 
 func TestInit(t *testing.T) {
@@ -22,6 +34,10 @@ func TestInit(t *testing.T) {
 	}
 
 	if len(bg.positions) != 3 {
+		t.Errorf("matrix sieze mis match")
+	}
+
+	if breadth(bg.positions) != 3 {
 		t.Errorf("matrix sieze mis match")
 	}
 }
