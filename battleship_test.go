@@ -4,6 +4,17 @@ import (
 	"testing"
 )
 
+func TestNewBattleGround(t *testing.T) {
+	_battleGround, err := NewBattleGround(10, 6, "1:1")
+	if err == nil {
+		t.Errorf("validation failed")
+	}
+
+	if len(_battleGround) != 0 {
+		t.Errorf("validation failed")
+	}
+}
+
 func TestValidateGridRange(t *testing.T) {
 	if err := validateGridRange(0); err == nil || err != ErrMinGridSize {
 		t.Errorf("validation failed to catch the grid size below allowed value")
