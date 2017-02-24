@@ -12,6 +12,8 @@ const (
 
 	GROUND_BLANK      = "_"
 	ALIVE_BATTLESHIPS = "B"
+	DIRECT_HIT        = "X"
+	MISSED            = "O"
 )
 
 var (
@@ -63,6 +65,17 @@ func (b *battleGround) plotShips(s int, positions [][]int) error {
 
 	for _, ship := range positions {
 		b.positions[ship[0]][ship[1]] = ALIVE_BATTLESHIPS
+	}
+
+	return nil
+}
+
+func (b *battleGround) hit(x, y int) error {
+	switch b.positions[x][y] {
+	case ALIVE_BATTLESHIPS:
+		b.positions[x][y] = DIRECT_HIT
+	case GROUND_BLANK:
+		b.positions[x][y] = MISSED
 	}
 
 	return nil
