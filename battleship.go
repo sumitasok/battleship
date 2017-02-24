@@ -19,6 +19,14 @@ var (
 type battleGround map[int]map[int]string
 
 func NewBattleGround(m, s int, positions string) (battleGround, error) {
+	if err := validateGridRange(m); err != nil {
+		return battleGround{}, err
+	}
+
+	if err := validateShipCount(m, s); err != nil {
+		return battleGround{}, err
+	}
+
 	return battleGround{}, nil
 }
 
