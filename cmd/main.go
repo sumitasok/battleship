@@ -57,7 +57,7 @@ func main() {
 
 	print("P1:\n" + bg1.String())
 
-	battleship.Attack(attackCount, bg1, strickBy2)
+	battleship.Attack(attackCount, &bg1, strickBy2)
 
 	fileP1Status, err := os.Create(os.Args[1] + "-P1-status")
 	defer fileP1Status.Close()
@@ -85,11 +85,21 @@ func main() {
 		panic(err)
 	}
 
-	battleship.Attack(attackCount, bg2, strickBy1)
+	battleship.Attack(attackCount, &bg2, strickBy1)
 	// bg2 status write to file
 	w2 := bufio.NewWriter(fileP2Status)
 	w2.WriteString(bg2.String())
 	w2.Flush()
 	// bg2 status write to io
 	print("P2 Attacked:\n" + bg2.String())
+
+	winner := battleship.Winner(&bg1, &bg2)
+	switch winner {
+	case 0:
+		print("It is a draw")
+	case 1:
+		print("Player 1 wins")
+	case 2:
+		print("Player 2 wins")
+	}
 }

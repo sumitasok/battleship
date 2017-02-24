@@ -10,19 +10,43 @@ func TestAttack(t *testing.T) {
 		panic(err)
 	}
 
-	if bg.String() != "_________\n_B_______\n___BB____\n____B____\n_________\n_________\n_________\n_________\n_________\n" {
-		t.Errorf("plotting error")
-	}
-
 	attack := "1:1,2:1"
-	err = Attack(1, bg, attack)
+	err = Attack(1, &bg, attack)
 	if err == nil {
 		t.Errorf("Error adhering to attach count")
 	}
 
-	err = Attack(2, bg, attack)
+	err = Attack(2, &bg, attack)
+}
 
-	if bg.String() != "_________\n_X_______\n_O_BB____\n____B____\n_________\n_________\n_________\n_________\n_________\n" {
-		t.Errorf("plotting error")
+func TestWinner(t *testing.T) {
+	bg1, _ := NewBattleGround(9, 4, "1:1,2:3,3:4,2:4")
+	bg1.shipDown = 1
+
+	bg2, _ := NewBattleGround(9, 4, "1:1,2:3,3:4,2:4")
+	bg2.shipDown = 2
+
+	if Winner(&bg1, &bg2) != 1 {
+		t.Errorf("Error finding the winner")
+	}
+
+	bg1, _ = NewBattleGround(9, 4, "1:1,2:3,3:4,2:4")
+	bg1.shipDown = 2
+
+	bg2, _ = NewBattleGround(9, 4, "1:1,2:3,3:4,2:4")
+	bg2.shipDown = 1
+
+	if Winner(&bg1, &bg2) != 2 {
+		t.Errorf("Error finding the winner")
+	}
+
+	bg1, _ = NewBattleGround(9, 4, "1:1,2:3,3:4,2:4")
+	bg1.shipDown = 2
+
+	bg2, _ = NewBattleGround(9, 4, "1:1,2:3,3:4,2:4")
+	bg2.shipDown = 2
+
+	if Winner(&bg1, &bg2) != 0 {
+		t.Errorf("Error finding the tie")
 	}
 }

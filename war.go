@@ -1,6 +1,6 @@
 package battleship
 
-func Attack(allowedHits int, bg battleGround, attackString string) error {
+func Attack(allowedHits int, bg *battleGround, attackString string) error {
 	position, err := parsePositionString(attackString)
 	if err != nil {
 		return err
@@ -20,4 +20,16 @@ func Attack(allowedHits int, bg battleGround, attackString string) error {
 	}
 
 	return nil
+}
+
+func Winner(bg1, bg2 *battleGround) int {
+	if bg1.ShipsStanding() == bg2.ShipsStanding() {
+		return 0
+	}
+
+	if bg1.ShipsStanding() > bg2.ShipsStanding() {
+		return 1
+	}
+
+	return 2
 }
