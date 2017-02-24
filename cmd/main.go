@@ -69,6 +69,7 @@ func main() {
 	// bg1 status write to file
 	w := bufio.NewWriter(fileP1Status)
 	w.WriteString(bg1.String())
+	w.Flush()
 	// bg1 write to io
 
 	bg2, err := battleship.NewBattleGround(m, s, p2)
@@ -88,6 +89,7 @@ func main() {
 	// bg2 status write to file
 	w2 := bufio.NewWriter(fileP2Status)
 	w2.WriteString(bg2.String())
+	w2.Flush()
 	// bg2 status write to io
 	print("P2 Attacked:\n" + bg2.String())
 }

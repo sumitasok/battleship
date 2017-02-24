@@ -85,12 +85,12 @@ func (b *battleGround) ShipsStanding() int {
 }
 
 func (b *battleGround) hit(x, y int) error {
-	switch b.positions[x][y] {
+	switch b.positions[y][x] {
 	case ALIVE_BATTLESHIPS:
 		b.shipDown += 1
-		b.positions[x][y] = DIRECT_HIT
+		b.positions[y][x] = DIRECT_HIT
 	case GROUND_BLANK:
-		b.positions[x][y] = MISSED
+		b.positions[y][x] = MISSED
 	}
 
 	return nil
