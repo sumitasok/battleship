@@ -34,12 +34,27 @@ func TestInit(t *testing.T) {
 	}
 
 	if len(bg.positions) != 3 {
-		t.Errorf("matrix sieze mis match")
+		t.Errorf("matrix size mis match")
 	}
 
 	if breadth(bg.positions) != 3 {
-		t.Errorf("matrix sieze mis match")
+		t.Errorf("matrix size mis match")
 	}
+}
+
+func TestBattleShipString(t *testing.T) {
+	bg, err := NewBattleGround(3, 1, "1:1")
+
+	if err != nil {
+		t.Errorf("Init failed")
+	}
+
+	layout := bg.String()
+	if layout != "___\n___\n___\n" {
+		t.Errorf("Draw Failed")
+	}
+
+	// print(layout)
 }
 
 func TestValidateGridRange(t *testing.T) {

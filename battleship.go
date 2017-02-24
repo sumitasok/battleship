@@ -39,6 +39,17 @@ func (b *battleGround) init(m int) error {
 	return nil
 }
 
+func (b *battleGround) String() string {
+	layout := ""
+	for i := 0; i < b.m; i++ {
+		for j := 0; j < b.m; j++ {
+			layout += b.positions[i][j]
+		}
+		layout += "\n"
+	}
+	return layout
+}
+
 // NewBattleGround creates a new ballte ground with the grid size and ship count specified
 // if conditions are matched, and ship positions are added.
 func NewBattleGround(m, s int, positions string) (battleGround, error) {
