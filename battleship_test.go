@@ -10,8 +10,19 @@ func TestNewBattleGround(t *testing.T) {
 		t.Errorf("validation failed")
 	}
 
-	if len(_battleGround) != 0 {
+	if len(_battleGround.positions) != 0 {
 		t.Errorf("validation failed")
+	}
+}
+
+func TestInit(t *testing.T) {
+	bg, err := NewBattleGround(3, 1, "1:1")
+	if err != nil {
+		t.Errorf("Init failed")
+	}
+
+	if len(bg.positions) != 3 {
+		t.Errorf("matrix sieze mis match")
 	}
 }
 

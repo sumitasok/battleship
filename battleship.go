@@ -7,6 +7,8 @@ import (
 const (
 	MIN_GRID_SIZE = 1
 	MAX_GRID_SIZE = 9
+
+	GROUND_BLANK = "_"
 )
 
 var (
@@ -16,8 +18,29 @@ var (
 	ErrMaxShipCount error = errors.New("Bring you ships! ship count cannot be more than half of the grid size")
 )
 
-type battleGround map[int]map[int]string
+type battleGround struct {
+	positions map[int]map[int]string
+	m         int
+	s         int
+}
 
+// init return an initialised battle ground with all blank grid.
+func (b *battleGround) init(m int) error {
+	b.m = m
+	b.positions = make(map[int]map[int]string)
+
+	for i := 0; i < m; i++ {
+		b.positions[i] = make(map[int]string)
+		for j := 0; j < m; j++ {
+			b.positions[i][j] = GROUND_BLANK
+		}
+	}
+
+	return nil
+}
+
+// NewBattleGround creates a new ballte ground with the grid size and ship count specified
+// if conditions are matched, and ship positions are added.
 func NewBattleGround(m, s int, positions string) (battleGround, error) {
 	if err := validateGridRange(m); err != nil {
 		return battleGround{}, err
@@ -27,7 +50,13 @@ func NewBattleGround(m, s int, positions string) (battleGround, error) {
 		return battleGround{}, err
 	}
 
-	return battleGround{}, nil
+	bg := battleGround{}
+	err := bg.init(m)
+	if err != nil {
+		return battleGround{}, err
+	}
+
+	return bg, nil
 }
 
 func validateGridRange(m int) error {
