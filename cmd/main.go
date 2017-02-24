@@ -2,15 +2,12 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"github.com/sumitasok/battleship"
 	"os"
 	"strconv"
 )
 
 func main() {
-	fmt.Println("Hi!")
-
 	file, err := os.Open(os.Args[1])
 	defer file.Close()
 
@@ -45,7 +42,7 @@ func main() {
 		case 7:
 			strickBy2 = scanner.Text()
 		default:
-			fmt.Printf("trailing content found in the file.")
+			println("trailing content found in the file.")
 		}
 		i += 1
 	}
@@ -96,10 +93,10 @@ func main() {
 	winner := battleship.Winner(&bg1, &bg2)
 	switch winner {
 	case 0:
-		print("It is a draw")
+		println("It is a draw")
 	case 1:
-		print("Player 1 wins")
+		println("Player 1 wins")
 	case 2:
-		print("Player 2 wins")
+		println("Player 2 wins")
 	}
 }
