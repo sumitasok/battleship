@@ -26,3 +26,15 @@ func validateGridRange(m int) error {
 
 	return nil
 }
+
+func validateShipCount(m, s int) error {
+	if s == 0 {
+		return errors.New("Bring you ships! ship count need to be more than 0")
+	}
+
+	if s > m/2 {
+		return errors.New("Bring you ships! ship count need to be more than 0")
+	}
+
+	return nil
+}
