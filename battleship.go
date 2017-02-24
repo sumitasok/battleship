@@ -19,8 +19,8 @@ const (
 var (
 	ErrMinGridSize             error = errors.New("Grid size needs to be more than " + string(MIN_GRID_SIZE))
 	ErrMaxGridSize             error = errors.New("Grid size needs to be less than " + string(MIN_GRID_SIZE))
-	ErrMinShipCount            error = errors.New("Bring you ships! ship count need to be more than 0")
-	ErrMaxShipCount            error = errors.New("Bring you ships! ship count cannot be more than half of the grid size")
+	ErrMinShipCount            error = errors.New("ship count need to be more than 0 (0 < S <= M/2)")
+	ErrMaxShipCount            error = errors.New("ship count cannot be more than half of the grid size (0 < S <= M/2)")
 	ErrIncorrectPositionString error = errors.New("Position string incorrect")
 	ErrExceededAllowedHits     error = errors.New("Hits more than allowed hits count")
 	ErrExceededAllowedShips    error = errors.New("Hits more than allowed ships count")
@@ -74,7 +74,7 @@ func (b *battleGround) plotShips(s int, positions [][]int) error {
 	}
 
 	for _, ship := range positions {
-		b.positions[ship[0]][ship[1]] = ALIVE_BATTLESHIPS
+		b.positions[ship[1]][ship[0]] = ALIVE_BATTLESHIPS
 	}
 
 	return nil
