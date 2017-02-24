@@ -62,10 +62,18 @@ func TestBattleShipHit(t *testing.T) {
 		t.Errorf("error in plotting missed hit")
 	}
 
+	if bg.shipDown != 0 {
+		t.Errorf("error in counting hit")
+	}
+
 	bg.hit(1, 1)
 
 	if bg.String() != "_O_\n_X_\n___\n" {
-		t.Errorf("error in plotting missed hit")
+		t.Errorf("error in plotting hit")
+	}
+
+	if bg.shipDown != 1 {
+		t.Errorf("error in counting hit")
 	}
 }
 

@@ -28,6 +28,7 @@ type battleGround struct {
 	positions map[int]map[int]string
 	m         int
 	s         int
+	shipDown  int
 }
 
 // init return an initialised battle ground with all blank grid.
@@ -59,6 +60,9 @@ func (b *battleGround) String() string {
 }
 
 func (b *battleGround) plotShips(s int, positions [][]int) error {
+	b.s = s
+	b.shipDown = 0
+
 	if err := validateShipPositions(s, positions); err != nil {
 		return err
 	}
@@ -73,6 +77,7 @@ func (b *battleGround) plotShips(s int, positions [][]int) error {
 func (b *battleGround) hit(x, y int) error {
 	switch b.positions[x][y] {
 	case ALIVE_BATTLESHIPS:
+		b.shipDown += 1
 		b.positions[x][y] = DIRECT_HIT
 	case GROUND_BLANK:
 		b.positions[x][y] = MISSED
